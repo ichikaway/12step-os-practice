@@ -1,0 +1,4 @@
+git clone https://github.com/satumaimo10/buildenv_kozos docker
+
+./shell.sh
+
