@@ -2,3 +2,7 @@ tmp
 docker
 workspace/osbook_03
 workspace/osbook_03.zip
+workspace/myos/kzload
+workspace/myos/kzload.elf
+workspace/myos/kzload.mot
+workspace/myos/*.o
