@@ -18,3 +18,10 @@ rootユーザになって
 terminal.shもしくは
 screen /dev/ttyUSB0 9600
 
+screen経由でxmodemでのファイル転送方法
+terminal.shでscreen起動後に、
+Ctl-a : でコマンド入力になったあとに
+exec !! sx -kb  workspace/myos/defines.h(転送したいファイル)
+を入力する
+
+
