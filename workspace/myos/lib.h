@@ -14,4 +14,7 @@ int strncmp(const char *s1, const char *s2, int len);
 
 int putxval(unsigned long value, int column);
 
+unsigned char getc(void);
+int gets(unsigned char *buf);
+
 #endif
