@@ -21,7 +21,10 @@ screen /dev/ttyUSB0 9600
 screen経由でxmodemでのファイル転送方法
 terminal.shでscreen起動後に、
 Ctl-a : でコマンド入力になったあとに
-exec !! sx -kb  workspace/myos/defines.h(転送したいファイル)
+exec !! sx -b  (転送したいファイル)
+exec !! sx -b workspace/myos/kzload.elf
 を入力する
+
+sxは-kbのように-kコマンドを指定するとelfファイルのような大きめのファイルが転送できなくなるので注意。
 
 
