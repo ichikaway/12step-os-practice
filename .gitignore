@@ -6,3 +6,6 @@ workspace/myos/kzload
 workspace/myos/kzload.elf
 workspace/myos/kzload.mot
 workspace/myos/*.o
+workspace/myos/os/*.o
+workspace/myos/os/kozos
+workspace/myos/os/kozos.elf
