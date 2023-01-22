@@ -23,6 +23,7 @@ terminal.shでscreen起動後に、
 Ctl-a : でコマンド入力になったあとに
 exec !! sx -b  (転送したいファイル)
 exec !! sx -b workspace/myos/kzload.elf
+exec !! sx -b workspace/myos/os/kozos
 を入力する
 
 sxは-kbのように-kコマンドを指定するとelfファイルのような大きめのファイルが転送できなくなるので注意。
