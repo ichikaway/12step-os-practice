@@ -90,7 +90,7 @@ int strncmp(const char *s1, const char *s2, int len)
         }
         s1++;
         s2++;
-        len++;
+        len--;
     }
     return 0;
 }
