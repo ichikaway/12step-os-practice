@@ -1,25 +1,49 @@
 #include "defines.h"
+#include "intr.h"
+#include "interrupt.h"
 #include "serial.h"
 #include "lib.h"
 
-int main(void)
+/**
+ * 割り込みハンドラー
+ */
+static void intr(softvec_type_t type, unsigned long sp)
 {
+    int c;
     static char buf[32];
-    puts("Hello World\n");
+    static int len;
 
-    while(1) {
-        puts("> ");
-        gets(buf);
+    c = getc();
 
-        //if (strncmp(buf, "echo", 4) == 0) {
-        if (!strncmp(buf, "echo", 4) ) {
+    if (c != '\n') {
+        buf[len++] = c;
+    } else {
+        buf[len++] = '\0';
+        if (strncmp(buf, "echo", 4) == 0) {
             puts(buf + 4);
             puts("\n");
-        } else if (strcmp(buf, "exit") == 0) {
-            break;
         } else {
-            puts("unknown\n");
+            puts("unknown.\n");
         }
+        puts("> ");
+        len = 0;
+    }
+}
+
+int main(void)
+{
+    INTR_DISABLE;
+
+    puts("kozos boot succeed\n");
+
+    softvec_setintr(SOFTVEC_TYPE_SERINTR, intr);
+    serial_intr_recv_enable(SERIAL_DEFAULT_DEVICE);
+
+    puts("> ");
+
+    INTR_ENABLE;
+    while (1) {
+        asm volatile ("sleep");
     }
     return 0;
 }

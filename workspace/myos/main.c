@@ -1,4 +1,5 @@
 #include "defines.h"
+#include "interruput.h"
 #include "serial.h"
 #include "xmodem.h"
 #include "elf.h"
@@ -10,6 +11,8 @@ static int init(void)
 
     memcpy(&data_start, &erodata, (long)&edata - (long)&data_start);
     memset(&bss_start, 0, (long)&ebss - (long)&bss_start);
+
+    softvec_init();
 
     serial_init(SERIAL_DEFAULT_DEVICE);
     return 0;
@@ -54,6 +57,8 @@ int main(void)
     extern int buffer_start;
     char *entry_point;
     void (*f)(void);
+
+    INTR_DISABLE; /* 割り込み無効化 */
 
     init();
     puts("boot loader started\n");
