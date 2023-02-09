@@ -14,8 +14,18 @@ softvecセクションはリンカで定義され物理メモリ`0xffbf20`が利
 
 ブートローダとOSのリンカそれぞれに0xffbf20をsoftvecに利用すると定義され、
 interrupt.hの `extern char softvec`でそのアドレスにアクセスできるようになっている。
+bootloadの`interrupt.h`では次のように定義される
+```c
+extern char softvec;
+#define SOFTVEC_ADDR (&softvec)
+#define SOFTVECS ((softvec_handler_t *)SOFTVEC_ADDR)
+```
+softvecがリンカのsoftvecセクション、そのアドレスを`SOFTVEC_ADDR`という名前にする。
+`SOFTVECS`配列はsoftvecアドレスから始まる `softvec_hander_t`というハンドラの関数ポインタの型になる
+```c
+typedef void (*softvec_handler_t)(softvec_type_t type, unsigned long sp);
+```
 
 OS側のmain.cではブートローダから呼び出されたあとにまずはハンドラ intr()の関数ポインタのアドレスをリンカで定義した `softvec(0xffbf20)`にセットする。  
 
 OS側のmain.cでその後シリアルの割り込みを有効にしてスリープする。シリアルから受信されると割り込みが発生して割り込みベクターから順に処理されてintr()が呼び出される
-
