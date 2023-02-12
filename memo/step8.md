@@ -65,7 +65,7 @@ syscall_proc()からcall_function()で
 - thread_intr()[kozo.c]がソフト割り込みハンドラとして登録されているためthread_intr()が実行される。
 
 
-  ```
+```c
   static void thread_intr(softvec_type_t type, unsigned long sp)
 {
     // 割り込み発生時に動いてるスレッドのspをそのスレッドのTCBのcontext.spに保存
@@ -85,7 +85,7 @@ syscall_proc()からcall_function()で
     /* ここには返ってこない */
 }
 
-  ```
+```
 
 - thread_intr()の中のhandler実行でsyscall_intr()[kozo.c] が実行される。詳細は次のパラグラフで。 
   - ハンドラによってシステムコールが発行されて新しいスレッドが登録もしくはexitされる。 
