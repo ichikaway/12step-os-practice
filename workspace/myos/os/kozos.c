@@ -46,6 +46,29 @@ static kz_handler_t handlers[SOFTVEC_TYPE_NUM]; /* 割り込みハンドラー *
 
 void dispatch(kz_context *context); /* startup.sにあるディスパッチ関数 */
 
+
+void printDebug()
+{
+    puts("Current: ");
+    puts(current->name);
+    puts("\n");
+
+    if (readyque.head == NULL) {
+        return;
+    }
+    kz_thread *now = readyque.head;
+
+    puts("ReadyQue: ");
+    while(now != NULL) {
+        puts(now->name);
+        puts(", ");
+        now = now->next;
+    }
+
+    puts("\n");
+    return;
+}
+
 static int getcurrent(void)
 {
     if (current == NULL) {
@@ -188,7 +211,10 @@ static void call_functions(kz_syscall_type_t type, kz_syscall_param_t *p)
 
 static void syscall_proc(kz_syscall_type_t type, kz_syscall_param_t *p)
 {
+    puts("syscall_proc\n");
+    printDebug();
     getcurrent();
+    printDebug();
     call_functions(type, p);
 }
 
@@ -218,6 +244,9 @@ static void softerr_intr(void)
 
 static void thread_intr(softvec_type_t type, unsigned long sp)
 {
+    puts("thread_intr()\n");
+    printDebug();
+
     // 割り込み発生時に動いてるスレッドのspをそのスレッドのTCBのcontext.spに保存
     current->context.sp = sp;
 
