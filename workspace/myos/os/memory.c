@@ -66,6 +66,7 @@ void *kzmem_alloc(int size)
         poolp = &pool[i];
         if (size <= (poolp->size - sizeof(kzmem_block))) {
             if (poolp->free == NULL) {
+                continue;
                 kz_sysdown();
                 return NULL;
             }
