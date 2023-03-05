@@ -19,7 +19,8 @@ OBJS += lib.o serial.o
 
 #OBJS += kozos.o syscall.o test08_1.o
 #OBJS += kozos.o syscall.o test09_1.o test09_2.o test09_3.o
-OBJS += kozos.o syscall.o memory.o test10_1.o
+#OBJS += kozos.o syscall.o memory.o test10_1.o
+OBJS += kozos.o syscall.o memory.o test11_1.o test11_2.o
 
 TARGET = kozos
 

@@ -1,0 +1,35 @@
+#include "defines.h"
+#include "kozos.h"
+#include "lib.h"
+
+int test11_1_main(int argc, char *argv[])
+{
+    char *p;
+    int size;
+
+    puts("test11_1 started.\n");
+
+    puts("test11_1 recv1 in.\n");
+    kz_recv(MSGBOX_ID_MSGBOX1, &size, &p);
+    puts("test11_1 recv1 out.\n");
+    puts(p);
+
+    puts("test11_1 recv2 in.\n");
+    kz_recv(MSGBOX_ID_MSGBOX1, &size, &p);
+    puts("test11_1 recv2 out.\n");
+    puts(p);
+    kz_kmfree(p);
+
+    puts("test11_1 send1 in.\n");
+    kz_send(MSGBOX_ID_MSGBOX2, 30, "test11_1 send1 static memory\n");
+    puts("test11_1 send1 out.\n");
+
+    p = kz_kmalloc(33);
+    strcpy(p, "test11_1 send2 allocated memory\n");
+    puts("test11_1 send2 in.\n");
+    kz_send(MSGBOX_ID_MSGBOX2, 33, p);
+    puts("test11_1 send2 out.\n");
+
+    puts("test11_1 exit.\n");
+    return 0;
+}
